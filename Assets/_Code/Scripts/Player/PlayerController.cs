@@ -12,9 +12,14 @@ public class PlayerController : MonoBehaviour
     private Touch touch; // Store the touch input
     private Vector3 startPos;
 
+    public StepStack stepStack;
     public Transform characterTrans;
     public Animator animController;
-
+    public Rigidbody rb;
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
     private void Start()
     {
         playerTransform = transform;
@@ -28,18 +33,22 @@ public class PlayerController : MonoBehaviour
             touch = Input.GetTouch(0); // Get the first touch (you can modify this for multi-touch)
 
 
-
-            if(touch.phase == TouchPhase.Began)
+            if (touch.phase == TouchPhase.Began)
             {
                 startPos = new Vector3(touch.position.x, 0f, touch.position.y);
             }
             // Check if the touch is a move (drag) type, and move the player accordingly.
             else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
             {
-                animController.SetBool("Run", true);
                 Vector3 dir = new Vector3(touch.position.x, 0f, touch.position.y) - startPos;
                 Vector3 moveDirection = dir.normalized;
 
+                if(moveDirection == Vector3.zero)
+                {
+                    return;
+                }
+                animController.SetBool("Run", true);
+                Debug.Log("Mov Dir = " + moveDirection);
 
                 // Calculate the angle between the current forward direction and the desired direction
                 float angle = Vector3.Angle(characterTrans.forward, moveDirection);
@@ -51,7 +60,7 @@ public class PlayerController : MonoBehaviour
                 characterTrans.Rotate(rotationAxis, angle, Space.Self);
 
 
-                Debug.Log(moveDirection);
+                //Debug.Log(moveDirection);
 
                 // Calculate the movement vector based on touch input and desired speed.
                 Vector3 moveVector = playerTransform.TransformDirection(moveDirection) * walkSpeed * Time.deltaTime;
@@ -63,7 +72,7 @@ public class PlayerController : MonoBehaviour
                     playerTransform.position += moveVector;
                 }
             }
-            else if(touch.phase == TouchPhase.Ended)
+            else if (touch.phase == TouchPhase.Ended)
             {
                 animController.SetBool("Run", false);
             }
@@ -80,7 +89,7 @@ public class PlayerController : MonoBehaviour
         {
             float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
             Debug.Log("Slope Angle = " + slopeAngle);
-            if (slopeAngle < 45.0f) // Adjust this angle threshold as needed
+            if (slopeAngle < 90.0f) // Adjust this angle threshold as needed
             {
                 isGrounded = true;
                 // Move the player up along the slope to avoid going through it.
@@ -95,5 +104,9 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        rb.velocity = Vector3.zero;
     }
 }
