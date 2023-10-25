@@ -111,10 +111,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a458b33fa375354fbb700e8a3de6330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  platform: {fileID: 0}
   m_Trail: {fileID: 5774006858220306061}
   moveToPos: {x: 0, y: 0, z: 0}
-  stackLocalScale: {x: 0.74, y: 1, z: 0.64}
-  moveSpeed: 2
+  stackLocalScale: {x: 0.6, y: 1, z: 0.64}
+  moveSpeed: 3
   rotateSpeed: 30
   isCollected: 0
   interpolateAmount: 0

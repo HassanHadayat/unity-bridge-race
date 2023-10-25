@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Step : MonoBehaviour
 {
-    public Platform platform;
+    [HideInInspector] public Platform platform;
 
     public GameObject m_Trail;
     public Vector3 moveToPos;
@@ -39,14 +39,10 @@ public class Step : MonoBehaviour
     {
         if (isCollected)
         {
-            //transform.localPosition = Vector3.MoveTowards(transform.localPosition, moveToPos, moveSpeed * Time.deltaTime);
-
             transform.localPosition = QuadraticLerp(a, b, c);
-
             transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.identity, rotateSpeed * Time.deltaTime);
 
-
-            if (Vector3.Distance(transform.localPosition, moveToPos) < 0.5f)
+            if (Vector3.Distance(transform.localPosition, moveToPos) < 1f)
             {
                 transform.localPosition = moveToPos;
                 transform.localRotation = Quaternion.identity;
@@ -64,6 +60,8 @@ public class Step : MonoBehaviour
         transform.localScale = stackLocalScale;
         m_Trail.SetActive(true);
         moveToPos = stackTopPos;
+        interpolateAmount = 0;
+
         isCollected = true;
     }
 }
