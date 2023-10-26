@@ -1,50 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5698010428704882905
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4924887296653482595}
-  - component: {fileID: 7198690541471359569}
-  m_Layer: 0
-  m_Name: Collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4924887296653482595
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5698010428704882905}
-  m_LocalRotation: {x: -0.2508024, y: 0, z: 0, w: 0.9680383}
-  m_LocalPosition: {x: 0, y: 0.278, z: 0.043}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7239820634353401139}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -29.05, y: 0, z: 0}
---- !u!65 &7198690541471359569
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5698010428704882905}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2.17, z: 1.3}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8012697784851179401
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,11 +11,12 @@ GameObject:
   - component: {fileID: 7239820634353401139}
   - component: {fileID: 6041254645020652182}
   - component: {fileID: 8372805640916207196}
-  - component: {fileID: 6786499582925711086}
   - component: {fileID: 8551305561394070862}
-  m_Layer: 0
+  - component: {fileID: 6786499582925711086}
+  - component: {fileID: 1816774129840816474}
+  m_Layer: 7
   m_Name: BridgeStep
-  m_TagString: Untagged
+  m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,8 +32,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.027, z: 0.002}
   m_LocalScale: {x: 1, y: 0.15, z: 0.27}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4924887296653482595}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -131,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6786499582925711086
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8012697784851179401}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 4.5618176, z: 1.4990804}
-  m_Center: {x: 0, y: 1.7809081, z: -0.24953958}
 --- !u!114 &8551305561394070862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +99,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerCol: {fileID: 6786499582925711086}
+  boundryCol: {fileID: 1816774129840816474}
   meshRenderer: {fileID: 8372805640916207196}
   whiteMaterial: {fileID: 2100000, guid: 22c029861db62aa49b91a3c1d9bccc2a, type: 2}
   stepMaterial: {fileID: 2100000, guid: 31b947ae92a9aa44ca9bbf2b267590ce, type: 2}
+--- !u!65 &6786499582925711086
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8012697784851179401}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3.1741216, z: 1.0112092}
+  m_Center: {x: 0, y: 1.0870559, z: -0.005603775}
+--- !u!65 &1816774129840816474
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8012697784851179401}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.5773637, z: 1.6287377}
+  m_Center: {x: 0, y: -0.21131814, z: -0.31436825}

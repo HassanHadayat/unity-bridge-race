@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public Transform playerTransform;
     public float groundCheckDistance = 0.12f;
     public bool isGrounded;
+    public bool canMove;
 
     private Touch touch; // Store the touch input
     private Vector3 startPos;
@@ -65,7 +66,8 @@ public class PlayerController : MonoBehaviour
 
                 // Check if the player is grounded and adjust movement accordingly.
                 CheckGround();
-                if (isGrounded)
+                CheckBoundry();
+                if (isGrounded && canMove)
                 {
                     playerTransform.position += moveVector;
                     stepStack.MoveStack();
@@ -78,7 +80,47 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    public LayerMask boundryLayer;
 
+    private void CheckBoundry()
+    {
+        RaycastHit hit;
+        Vector3 rayStart = characterTrans.localPosition + Vector3.up * 2f; ; // Slightly above the player's position
+        //Debug.Log("Forward == " + characterTrans.forward);
+        Vector3 characterWorld = characterTrans.TransformPoint(rayStart);
+        // Cast a ray downward to check for ground or slopes.
+        if (Physics.Raycast(characterWorld, characterTrans.forward, out hit, 0.25f, boundryLayer))
+        {
+            Debug.DrawLine(rayStart, hit.point, Color.green);
+            //Debug.Log("Collider Name = " + hit.collider.tag);
+            Debug.Log("Collider Name = " + hit.collider.gameObject.name);
+            //if (hit.collider.CompareTag("Boundry"))
+            //{
+            canMove = false;
+            //}
+            //else
+            //{
+                //canMove = true;
+            //}
+            //float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
+            ////Debug.Log("Slope Angle = " + slopeAngle);
+            //if (slopeAngle < 90.0f) // Adjust this angle threshold as needed
+            //{
+            //    isGrounded = true;
+            //    // Move the player up along the slope to avoid going through it.
+            //    playerTransform.position = hit.point + Vector3.up * 0.05f; // Adjust the offset as needed
+            //}
+            //else
+            //{
+            //    isGrounded = false;
+            //}
+        }
+        else
+        {
+            canMove = true;
+            //Debug.DrawRay(rayStart, characterTrans.forward * 100, Color.red);
+        }
+    }
     private void CheckGround()
     {
         RaycastHit hit;
