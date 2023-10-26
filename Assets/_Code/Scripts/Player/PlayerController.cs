@@ -1,22 +1,29 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviour
 {
-    public float walkSpeed = 5.0f;
+    public float walkSpeed = 3.0f;
+    public float rotateSpeed = 15f;
     public float slopeRayLength = 0.5f; // Adjust as needed
+    public float groundCheckDistance = 0.5f;
+    public float boundryCheckDistance = 0.25f;
+    public LayerMask boundryLayer;
 
     public Transform playerTransform;
-    public float groundCheckDistance = 0.12f;
+    public Transform characterTrans;
+
+    public StepStack stepStack;
+    public Animator animController;
+    public Rigidbody rb;
+
+
     public bool isGrounded;
     public bool canMove;
 
     private Touch touch; // Store the touch input
     private Vector3 startPos;
 
-    public StepStack stepStack;
-    public Transform characterTrans;
-    public Animator animController;
-    public Rigidbody rb;
     private void Awake()
     {
         Application.targetFrameRate = 60;
@@ -31,14 +38,12 @@ public class PlayerController : MonoBehaviour
         // Check for touch input to move the player.
         if (Input.touchCount > 0)
         {
-            touch = Input.GetTouch(0); // Get the first touch (you can modify this for multi-touch)
-
+            touch = Input.GetTouch(0);
 
             if (touch.phase == TouchPhase.Began)
             {
                 startPos = new Vector3(touch.position.x, 0f, touch.position.y);
             }
-            // Check if the touch is a move (drag) type, and move the player accordingly.
             else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
             {
                 Vector3 dir = new Vector3(touch.position.x, 0f, touch.position.y) - startPos;
@@ -49,22 +54,17 @@ public class PlayerController : MonoBehaviour
                     stepStack.StillStack();
                     return;
                 }
+
+                // Animation
                 animController.SetBool("Run", true);
 
-                // Calculate the angle between the current forward direction and the desired direction
-                float angle = Vector3.Angle(characterTrans.forward, moveDirection);
-
-                // Calculate the rotation axis as the cross product of the current forward direction and the desired direction
-                Vector3 rotationAxis = Vector3.Cross(characterTrans.forward, moveDirection);
-
-                // Apply the rotation around the local up axis
-                characterTrans.Rotate(rotationAxis, angle, Space.Self);
+                // Rotation
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                characterTrans.rotation = Quaternion.Slerp(characterTrans.rotation, targetRotation, 15f * Time.deltaTime);
 
 
-                // Calculate the movement vector based on touch input and desired speed.
+                // Movement
                 Vector3 moveVector = playerTransform.TransformDirection(moveDirection) * walkSpeed * Time.deltaTime;
-
-                // Check if the player is grounded and adjust movement accordingly.
                 CheckGround();
                 CheckBoundry();
                 if (isGrounded && canMove)
@@ -80,45 +80,20 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    public LayerMask boundryLayer;
 
     private void CheckBoundry()
     {
         RaycastHit hit;
         Vector3 rayStart = characterTrans.localPosition + Vector3.up * 2f; ; // Slightly above the player's position
-        //Debug.Log("Forward == " + characterTrans.forward);
         Vector3 characterWorld = characterTrans.TransformPoint(rayStart);
         // Cast a ray downward to check for ground or slopes.
-        if (Physics.Raycast(characterWorld, characterTrans.forward, out hit, 0.25f, boundryLayer))
+        if (Physics.Raycast(characterWorld, characterTrans.forward, out hit, boundryCheckDistance, boundryLayer))
         {
-            Debug.DrawLine(rayStart, hit.point, Color.green);
-            //Debug.Log("Collider Name = " + hit.collider.tag);
-            Debug.Log("Collider Name = " + hit.collider.gameObject.name);
-            //if (hit.collider.CompareTag("Boundry"))
-            //{
             canMove = false;
-            //}
-            //else
-            //{
-                //canMove = true;
-            //}
-            //float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
-            ////Debug.Log("Slope Angle = " + slopeAngle);
-            //if (slopeAngle < 90.0f) // Adjust this angle threshold as needed
-            //{
-            //    isGrounded = true;
-            //    // Move the player up along the slope to avoid going through it.
-            //    playerTransform.position = hit.point + Vector3.up * 0.05f; // Adjust the offset as needed
-            //}
-            //else
-            //{
-            //    isGrounded = false;
-            //}
         }
         else
         {
             canMove = true;
-            //Debug.DrawRay(rayStart, characterTrans.forward * 100, Color.red);
         }
     }
     private void CheckGround()
@@ -130,7 +105,6 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(rayStart, Vector3.down, out hit, groundCheckDistance))
         {
             float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
-            //Debug.Log("Slope Angle = " + slopeAngle);
             if (slopeAngle < 90.0f) // Adjust this angle threshold as needed
             {
                 isGrounded = true;

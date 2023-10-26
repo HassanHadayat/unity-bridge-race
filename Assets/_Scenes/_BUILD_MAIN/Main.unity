@@ -435,18 +435,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 3
+  rotateSpeed: 5
   slopeRayLength: 0.5
-  playerTransform: {fileID: 65669151}
   groundCheckDistance: 5
-  isGrounded: 0
-  canMove: 0
-  stepStack: {fileID: 756925515}
-  characterTrans: {fileID: 1425522106}
-  animController: {fileID: 1425522107}
-  rb: {fileID: 65669154}
+  boundryCheckDistance: 0.25
   boundryLayer:
     serializedVersion: 2
     m_Bits: 128
+  playerTransform: {fileID: 65669151}
+  characterTrans: {fileID: 1425522106}
+  stepStack: {fileID: 756925515}
+  animController: {fileID: 1425522107}
+  rb: {fileID: 65669154}
+  isGrounded: 0
+  canMove: 0
 --- !u!136 &65669153
 CapsuleCollider:
   m_ObjectHideFlags: 0
