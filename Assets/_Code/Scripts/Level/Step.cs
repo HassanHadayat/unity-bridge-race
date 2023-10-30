@@ -4,7 +4,6 @@ using UnityEngine;
 public class Step : MonoBehaviour
 {
     [HideInInspector] public Platform platform;
-
     public GameObject m_Trail;
     public Vector3 moveToPos;
     public Vector3 stackLocalScale;
@@ -51,6 +50,7 @@ public class Step : MonoBehaviour
             }
         }
     }
+
     public void MoveToStack(Vector3 stackTopPos, Vector3 playerTopPos)
     {
         platform.AddAvailableStepPosition(transform.position);

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BridgeStep : MonoBehaviour
@@ -10,19 +11,65 @@ public class BridgeStep : MonoBehaviour
     public Material stepMaterial;
 
 
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && other.GetComponent<PlayerController>().stepStack.steps.Count > 0)
+        if (other.tag.Contains("Player"))
         {
-            meshRenderer.material = whiteMaterial;
-            meshRenderer.enabled = true;
-            triggerCol.enabled = false;
-            boundryCol.enabled = false;
+            Debug.Log(other.gameObject.name);
 
-            other.GetComponent<PlayerController>().stepStack.RemoveStep();
+            if (other.CompareTag("Blue Player"))
+            {
+                if (other.GetComponent<PlayerController>().stepStack.steps.Count > 0 && other.GetComponent<PlayerProperty>().m_Material.name != stepMaterial.name)
+                {
 
-            Invoke("ChangeMaterial", 0.1f);
+                    // Blue Player
+                    //triggerCol.enabled = false;
+                    //boundryCol.enabled = false;
+
+                    other.GetComponent<PlayerController>().stepStack.RemoveStep();
+                    Material newMaterial = other.GetComponent<PlayerProperty>().m_Material;
+                    StartCoroutine(ChangeMaterial(newMaterial));
+                }
+                else if (other.GetComponent<PlayerProperty>().m_Material.name == stepMaterial.name)
+                {
+                    other.GetComponent<PlayerController>().canMove = true;
+                }
+                else
+                {
+                    other.GetComponent<PlayerController>().canMove = false;
+                }
+            }
+            else if (other.tag.Contains("Player") && other.GetComponent<AIController>().stepStack.steps.Count > 0)
+            {
+                // AI Colored Player
+                //triggerCol.enabled = false;
+                //boundryCol.enabled = false;
+
+                //other.GetComponent<AIController>().stepStack.RemoveStep();
+                //Material newMaterial = other.GetComponent<PlayerProperty>().m_Material;
+                //StartCoroutine(ChangeMaterial(newMaterial));
+
+
+                if (other.GetComponent<AIController>().stepStack.steps.Count > 0 && other.GetComponent<PlayerProperty>().m_Material.name != stepMaterial.name)
+                {
+
+                    // Blue Player
+                    //triggerCol.enabled = false;
+                    //boundryCol.enabled = false;
+
+                    other.GetComponent<AIController>().stepStack.RemoveStep();
+                    Material newMaterial = other.GetComponent<PlayerProperty>().m_Material;
+                    StartCoroutine(ChangeMaterial(newMaterial));
+                }
+                else if (other.GetComponent<PlayerProperty>().m_Material.name == stepMaterial.name)
+                {
+                    other.GetComponent<AIController>().canMove = true;
+                }
+                else
+                {
+                    other.GetComponent<AIController>().canMove = false;
+                }
+            }
         }
     }
     //private void OnCollisionEnter(Collision collision)
@@ -38,9 +85,13 @@ public class BridgeStep : MonoBehaviour
     //        Invoke("ChangeMaterial", 0.1f);
     //    }
     //}
-    private void ChangeMaterial()
+    IEnumerator ChangeMaterial(Material newMaterial)
     {
-        meshRenderer.material = stepMaterial;
+        meshRenderer.enabled = true;
+        meshRenderer.material = whiteMaterial;
+        yield return new WaitForSeconds(0.1f);
+        meshRenderer.material = newMaterial;
+        stepMaterial = newMaterial;
     }
 
 }

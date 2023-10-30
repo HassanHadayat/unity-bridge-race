@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class StepStack : MonoBehaviour
@@ -9,9 +8,87 @@ public class StepStack : MonoBehaviour
     public Vector3 playerTopPos = Vector3.zero;
     public float stepHeight;
 
+    [Header("Movement Variables")]
+    public float backwardStartAngle;
+    public float backwardEndAngle;
+    public float backwardLerpSpeed;
+
+    public float forwardStartAngle;
+    public float forwardEndAngle;
+    public float forwardLerpSpeed;
+
+    public bool isNone = true;
+    public bool isStill = false;
+    public bool isMoving = false;
+    public bool isCentering = false;
+    public float normalizedTime = 0.0f;
+
+    private void Start()
+    {
+
+    }
+    private void Update()
+    {
+        if (isNone)
+        {
+            return;
+        }
+        //else if (isCentering && isStill)
+        //{
+        //    MoveStackStepsToCenter(forwardLerpSpeed);
+        //    if (normalizedTime == 1)
+        //    {
+        //        isCentering = false;
+        //        isStill = true;
+        //        normalizedTime = 0.0f;
+        //    }
+        //}
+        //else if (isStill && isNone)
+        //{
+        //    MoveStackStepsToCenter(forwardLerpSpeed);
+        //    if (normalizedTime == 1)
+        //    {
+        //        isCentering = false;
+        //        isStill = false;
+        //        isNone = true;
+        //        normalizedTime = 0.0f;
+        //    }
+        //}
+        else if (isStill)
+        {
+            MoveStackSteps(1, forwardStartAngle, forwardEndAngle, forwardLerpSpeed);// Forward Direction
+            if (normalizedTime == 1)
+            {
+                isStill = false;
+                isNone = false;
+                isCentering = true;
+                normalizedTime = 0.0f;
+            }
+            //StillStackMovement();
+        }
+        else if (isMoving)
+        {
+            MoveStackSteps(-1, backwardStartAngle, backwardEndAngle, backwardLerpSpeed);// Backward Direction
+            //MoveStackMovement();
+        }
+        else if (isCentering)
+        {
+            MoveStackStepsToCenter(forwardLerpSpeed);
+            if (normalizedTime == 1)
+            {
+                isStill = false;
+                isCentering = false;
+                isNone = true;
+                normalizedTime = 0.0f;
+            }
+        }
+    }
+
+
     public void AddStep(GameObject step)
     {
         step.transform.parent = this.transform;
+        step.tag = "Collected";
         step.GetComponent<Step>().MoveToStack(stepTopPos, playerTopPos);
 
         steps.Add(step);
@@ -23,6 +100,7 @@ public class StepStack : MonoBehaviour
     {
         // Restore that step in the platform
         GameObject step = steps[steps.Count - 1];
+        step.tag = step.transform.parent.tag;
         step.GetComponent<Step>().platform.AddPlatformStep(step);
         steps.RemoveAt(steps.Count - 1);
 
@@ -35,7 +113,7 @@ public class StepStack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Step"))
+        if (other.CompareTag(this.tag))
         {
             AddStep(other.gameObject);
         }
@@ -44,44 +122,44 @@ public class StepStack : MonoBehaviour
 
     public void MoveStack()
     {
-        if (steps.Count <= 1) return;
+        if (steps.Count <= 1 || isMoving) return;
 
-        Vector3 centerPoint = Vector3.zero; // The center of the circle
-        centerPoint.z = -steps.Count;
-        float radius = steps.Count;  // Radius of the circle
-        int numPoints = steps.Count;   // Number of points to generate
-        float startAngle = 0.0f; // Start angle in degrees
-        float endAngle = 25.0f;   // End angle in degrees
+        normalizedTime = 0f;
 
-        float startAngleRad = startAngle * (Mathf.PI / 180);
-        float endAngleRad = endAngle * (Mathf.PI / 180);
-
-        for (int i = 0; i < numPoints; i++)
-        {
-            float angle = Mathf.Lerp(startAngleRad, endAngleRad, i / (float)(numPoints - 1));
-            float z = centerPoint.z + radius * Mathf.Cos(angle);
-
-            // Position
-            Vector3 tempPos = steps[i].transform.localPosition;
-            tempPos.z = z;
-            steps[i].transform.localPosition = tempPos;
-
-            // Rotation
-            Quaternion rotation = Quaternion.Euler(-angle * Mathf.Rad2Deg, 0, 0);
-            steps[i].transform.localRotation = rotation;
-        }
+        isNone = false;
+        isStill = false;
+        isCentering = false;
+        isMoving = true;
+        //MoveStackMovement();
+        MoveStackSteps(-1, backwardStartAngle, backwardEndAngle, backwardLerpSpeed);// Backward Direction
 
     }
     public void StillStack()
     {
-        if (steps.Count <= 1) return;
+        if (steps.Count <= 1 || isNone) return;
 
+
+        normalizedTime = 0f;
+
+        isNone = false;
+        isMoving = false;
+        //isCentering = true;
+        isStill = true;
+        //MoveStackStepsToCenter(forwardLerpSpeed);
+        //StillStackMovement();
+        MoveStackSteps(1, forwardStartAngle, forwardEndAngle, forwardLerpSpeed);// Forward Direction
+
+    }
+
+
+    private void StillStackMovement()
+    {
         Vector3 centerPoint = Vector3.zero; // The center of the circle
         centerPoint.z = -steps.Count;
         float radius = steps.Count;  // Radius of the circle
         int numPoints = steps.Count;   // Number of points to generate
         float startAngle = 0.0f; // Start angle in degrees
-        float endAngle = 20.0f;   // End angle in degrees
+        float endAngle = 30.0f;   // End angle in degrees
 
         float startAngleRad = startAngle * (Mathf.PI / 180);
         float endAngleRad = endAngle * (Mathf.PI / 180);
@@ -90,7 +168,7 @@ public class StepStack : MonoBehaviour
 
         for (int i = 0; i < numPoints; i++)
         {
-            float angle = Mathf.Lerp(startAngleRad, endAngleRad, i / (float)(numPoints - 1));
+            float angle = Mathf.Lerp(startAngleRad, endAngleRad, i / (float)(numPoints - 1) * normalizedTime);
             float z = centerPoint.z + radius * Mathf.Cos(angle);
 
             // Position
@@ -102,16 +180,112 @@ public class StepStack : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(angle * Mathf.Rad2Deg, 0, 0);
             steps[i].transform.localRotation = rotation;
         }
+        normalizedTime = Mathf.Clamp((normalizedTime + (Time.deltaTime * backwardLerpSpeed)), 0f, 1f);
+        if (normalizedTime == 1)
+        {
+            tempPos = Vector3.zero;
+            foreach (var step in steps)
+            {
+                tempPos = step.transform.localPosition;
+                tempPos.z = 0f;
+                step.transform.localPosition = tempPos;
 
-        tempPos = Vector3.zero;
+                step.transform.localRotation = Quaternion.identity;
+            }
+
+
+            isMoving = false;
+            isStill = false;
+            isNone = true;
+        }
+    }
+    public void MoveStackStepsToCenter(float lerpSpeed)
+    {
+        if (steps.Count <= 1) return;
+        Vector3 tempPos = Vector3.zero;
         foreach (var step in steps)
         {
             tempPos = step.transform.localPosition;
             tempPos.z = 0f;
-            step.transform.localPosition = tempPos;
 
-            step.transform.localRotation = Quaternion.identity;
+            step.transform.localPosition = Vector3.Lerp(step.transform.localPosition, tempPos, normalizedTime);
+            step.transform.localRotation = Quaternion.Lerp(step.transform.localRotation, Quaternion.identity, normalizedTime);
         }
+        normalizedTime = Mathf.Clamp((normalizedTime + (Time.deltaTime * lerpSpeed)), 0f, 1f);
+
+
+        //isMoving = false;
+        //isStill = false;
+        //isNone = true;
 
     }
+    private void MoveStackSteps(float direction, float startAngle, float endAngle, float lerpSpeed)
+    {
+        if (steps.Count <= 1) return;
+        Vector3 centerPoint = Vector3.zero; // The center of the circle
+        centerPoint.z = -steps.Count;
+        float radius = steps.Count;  // Radius of the circle
+        int numPoints = steps.Count;   // Number of points to generate
+
+        float startAngleRad = startAngle * (Mathf.PI / 180);
+        float endAngleRad = endAngle * (Mathf.PI / 180);
+
+        Vector3 tempPos = Vector3.zero;
+
+        for (int i = 0; i < numPoints; i++)
+        {
+            float angle = Mathf.Lerp(startAngleRad, endAngleRad, i / (float)(numPoints - 1) * normalizedTime);
+            angle = (direction == -1) ? -angle : angle;
+            float z = centerPoint.z + radius * Mathf.Cos(angle);
+
+            // Position
+            tempPos = steps[i].transform.localPosition;
+            tempPos.z = (direction == 1) ? -z : z;
+            steps[i].transform.localPosition = tempPos;
+
+            // Rotation
+            Quaternion rotation = Quaternion.Euler(angle * Mathf.Rad2Deg, 0, 0);
+            steps[i].transform.localRotation = rotation;
+        }
+        normalizedTime = Mathf.Clamp((normalizedTime + (Time.deltaTime * lerpSpeed)), 0f, 1f);
+    }
+
 }
+
+
+
+
+
+
+
+
+//private void MoveStackMovement()
+//{
+//    Vector3 centerPoint = Vector3.zero; // The center of the circle
+//    centerPoint.z = -steps.Count;
+//    float radius = steps.Count;  // Radius of the circle
+//    int numPoints = steps.Count;   // Number of points to generate
+//    float startAngle = 0.0f; // Start angle in degrees
+//    float endAngle = 25.0f;   // End angle in degrees
+
+//    float startAngleRad = startAngle * (Mathf.PI / 180);
+//    float endAngleRad = endAngle * (Mathf.PI / 180);
+
+
+//    for (int i = 0; i < numPoints; i++)
+//    {
+//        float angle = Mathf.Lerp(startAngleRad, endAngleRad, (i / (float)(numPoints - 1)) * normalizedTime);
+//        float z = centerPoint.z + radius * Mathf.Cos(angle);
+
+//        // Position
+//        Vector3 tempPos = steps[i].transform.localPosition;
+//        tempPos.z = z;
+//        steps[i].transform.localPosition = tempPos;
+
+//        // Rotation
+//        Quaternion rotation = Quaternion.Euler(-angle * Mathf.Rad2Deg, 0, 0);
+//        steps[i].transform.localRotation = rotation;
+//    }
+
+//    normalizedTime = Mathf.Clamp(normalizedTime + (Time.deltaTime * forwardLerpSpeed), 0f, 1f);
+//}

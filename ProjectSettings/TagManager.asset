@@ -6,6 +6,20 @@ TagManager:
   tags:
   - Step
   - Boundry
+  - Blue
+  - Red
+  - Green
+  - Pink
+  - Blue Player
+  - Red Player
+  - Green Player
+  - Pink Player
+  - Blue Step
+  - Red Step
+  - Pink Step
+  - Green Step
+  - Bridge Step
+  - Collected
   layers:
   - Default
   - TransparentFX
@@ -15,10 +29,10 @@ TagManager:
   - UI
   - 
   - Boundry
-  - 
-  - 
-  - 
-  - 
+  - Blue Steps
+  - Red Steps
+  - Green Steps
+  - Pink Steps
   - 
   - 
   - 

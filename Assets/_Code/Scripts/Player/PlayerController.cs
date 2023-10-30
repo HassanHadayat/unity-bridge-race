@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,9 +12,11 @@ public class PlayerController : MonoBehaviour
     public Transform playerTransform;
     public Transform characterTrans;
 
+    public PlayerProperty playerProperty;
     public StepStack stepStack;
     public Animator animController;
     public Rigidbody rb;
+    public Platform currPlatform;
 
 
     public bool isGrounded;
@@ -24,10 +25,7 @@ public class PlayerController : MonoBehaviour
     private Touch touch; // Store the touch input
     private Vector3 startPos;
 
-    private void Awake()
-    {
-        Application.targetFrameRate = 60;
-    }
+
     private void Start()
     {
         playerTransform = transform;
@@ -84,22 +82,28 @@ public class PlayerController : MonoBehaviour
     private void CheckBoundry()
     {
         RaycastHit hit;
-        Vector3 rayStart = characterTrans.localPosition + Vector3.up * 2f; ; // Slightly above the player's position
+        Vector3 rayStart = characterTrans.localPosition + Vector3.up * 1.75f;
         Vector3 characterWorld = characterTrans.TransformPoint(rayStart);
         // Cast a ray downward to check for ground or slopes.
         if (Physics.Raycast(characterWorld, characterTrans.forward, out hit, boundryCheckDistance, boundryLayer))
         {
-            canMove = false;
+            Debug.DrawRay(characterWorld, characterTrans.forward * hit.distance, Color.green);
+
+            if (hit.collider.tag == "Boundry")
+            {
+                canMove = false;
+            }
         }
         else
         {
+            Debug.DrawRay(characterWorld, characterTrans.forward * boundryCheckDistance, Color.red);
             canMove = true;
         }
     }
     private void CheckGround()
     {
         RaycastHit hit;
-        Vector3 rayStart = playerTransform.position + Vector3.up * 0.1f; // Slightly above the player's position
+        Vector3 rayStart = playerTransform.position + Vector3.up * 0.1f;
 
         // Cast a ray downward to check for ground or slopes.
         if (Physics.Raycast(rayStart, Vector3.down, out hit, groundCheckDistance))
@@ -121,6 +125,8 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
     }
+
+
     private void OnCollisionExit(Collision collision)
     {
         rb.velocity = Vector3.zero;
