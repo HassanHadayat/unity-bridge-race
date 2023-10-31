@@ -62,7 +62,7 @@ MonoBehaviour:
   steps: []
   stepTopPos: {x: 0, y: 0, z: 0}
   playerTopPos: {x: 0, y: 8, z: 0}
-  stepHeight: 0.6
+  stepHeight: 0.5
   backwardStartAngle: 0
   backwardEndAngle: 25
   backwardLerpSpeed: 5
@@ -84,9 +84,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5335088148888282849}
   - component: {fileID: 5335088148888282845}
-  - component: {fileID: 5335088148888282846}
   - component: {fileID: 5335088148888282847}
   - component: {fileID: 5335088148888282844}
+  - component: {fileID: 9149264153720203078}
   m_Layer: 0
   m_Name: Player
   m_TagString: Blue Player
@@ -125,34 +125,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CharacterMeshRenderer: {fileID: 8082569580320289238}
   m_Material: {fileID: 2100000, guid: e303cf5d3d8dae3479d78f93d04fc1a8, type: 2}
---- !u!114 &5335088148888282846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5335088148888282848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab9041ab4783b0f449254ab17743ad80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 3
-  rotateSpeed: 5
-  slopeRayLength: 0.5
-  groundCheckDistance: 5
-  boundryCheckDistance: 0.25
-  boundryLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  playerTransform: {fileID: 5335088148888282849}
-  characterTrans: {fileID: 5584660464576574636}
-  playerProperty: {fileID: 5335088148888282845}
-  stepStack: {fileID: 5335088148371614389}
-  animController: {fileID: 5335088150114751301}
-  rb: {fileID: 5335088148888282844}
-  isGrounded: 0
-  canMove: 0
 --- !u!136 &5335088148888282847
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -161,7 +133,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5335088148888282848}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.20042631
   m_Height: 1.1378577
@@ -183,6 +155,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!114 &9149264153720203078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5335088148888282848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1778305ff0515a48b15eadff853aeca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 3
+  rotateSpeed: 5
+  playerTrans: {fileID: 5335088148888282849}
+  characterTrans: {fileID: 5584660464576574636}
+  playerProperty: {fileID: 5335088148888282845}
+  stepStack: {fileID: 5335088148371614389}
+  animController: {fileID: 5335088150114751301}
+  currPlatform: {fileID: 0}
+  currBridge: {fileID: 0}
+  slopeRayLength: 0.5
+  groundCheckDistance: 0.5
+  boundryCheckDistance: 0.5
+  boundryLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  rb: {fileID: 5335088148888282844}
+  isGrounded: 0
+  canMove: 0
 --- !u!1 &5335088149738334793
 GameObject:
   m_ObjectHideFlags: 0

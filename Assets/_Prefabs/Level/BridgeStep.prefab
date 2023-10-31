@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 8372805640916207196}
   - component: {fileID: 8551305561394070862}
   - component: {fileID: 6786499582925711086}
-  - component: {fileID: 1816774129840816474}
   m_Layer: 7
   m_Name: BridgeStep
-  m_TagString: Untagged
+  m_TagString: Bridge Step
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,8 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e226690569a72ea49b64d99af89bbd66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerCol: {fileID: 6786499582925711086}
-  boundryCol: {fileID: 1816774129840816474}
   meshRenderer: {fileID: 8372805640916207196}
   whiteMaterial: {fileID: 2100000, guid: 22c029861db62aa49b91a3c1d9bccc2a, type: 2}
   stepMaterial: {fileID: 2100000, guid: 31b947ae92a9aa44ca9bbf2b267590ce, type: 2}
@@ -116,16 +113,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 4.3641133, z: 1.0112092}
   m_Center: {x: 0, y: 1.6820515, z: -0.005603775}
---- !u!65 &1816774129840816474
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8012697784851179401}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.5773637, z: 1.6287377}
-  m_Center: {x: 0, y: -0.21131814, z: -0.31436825}

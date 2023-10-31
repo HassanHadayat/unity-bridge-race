@@ -116,10 +116,37 @@ public class Platform : MonoBehaviour
         RemoveAvailableStepPosition(availablePositions[randValue]);
     }
 
+    public int GetStepsColorCount(string playerTag)
+    {
+        int count = 0;
+        string stepTag = "Undefined";
+        if (playerTag.Contains("Blue"))
+        {
+            stepTag = "Blue Step";
 
+        }
+        else if (playerTag.Contains("Red"))
+        {
+            stepTag = "Red Step";
+        }
+        else if (playerTag.Contains("Green"))
+        {
+            stepTag = "Green Step";
+        }
+        else if (playerTag.Contains("Pink"))
+        {
+            stepTag = "Pink Step";
+        }
 
-
-
+        foreach (GameObject step in platformSteps)
+        {
+            if (step.CompareTag(stepTag))
+            {
+                count++;
+            }
+        }
+        return count;
+    }
     public Bridge GetBridge()
     {
         if (availableBridgeIndexes.Count > 0)
@@ -133,35 +160,5 @@ public class Platform : MonoBehaviour
         {
             return null;
         }
-
-        //List<int> indexes = new List<int>();
-        //for (int i = 0; i < bridges.Length; i++) {  indexes.Add(i); }
-
-        //foreach(int index in indexes)
-        //{
-
-        //}
-        //bool flag = true;
-        //foreach (Bridge bridge in bridges)
-        //{
-        //    if (!bridge.isAssigned)
-        //    {
-        //        flag = false;
-        //        break;
-        //    }
-        //}
-        //// If al bridges are already assigned
-        //if (flag) return null;
-
-        //int index = 0;
-        //do
-        //{
-        //    index = Random.Range(0, bridges.Length);
-        //    flag = bridges[index].isAssigned;
-        //}
-        //while (flag);
-        //bridges[index].isAssigned = true;
-
-        //return bridges[index];
     }
 }

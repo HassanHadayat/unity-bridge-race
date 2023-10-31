@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
+    [Range(2, 4)]
     public int NoOfPlayers;
     private string[] AIColors = new string[] { "Red", "Green", "Pink" };
 

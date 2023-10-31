@@ -15,6 +15,12 @@ public class PlayerInstantiator : MonoBehaviour
     public GameObject AIGreenPrefab;
     public GameObject AIPinkPrefab;
 
+    [Header("Start Positions")]
+    public Transform bluePos;
+    public Transform redPos;
+    public Transform greenPos;
+    public Transform pinkPos;
+
     public Transform parentTrans;
 
     private void Awake()
@@ -29,28 +35,28 @@ public class PlayerInstantiator : MonoBehaviour
             //GameObject player = null;
             if (color == "Blue")
             {
-                GameObject player = Instantiate(PlayerBluePrefab, parentTrans);
+                GameObject player = Instantiate(PlayerBluePrefab, bluePos.position, Quaternion.identity, parentTrans);
                 player.GetComponent<PlayerController>().currPlatform = platform;
                 cameraFollow.SetTarget(player.transform);
                 players.Add(player);
             }
             else if (color == "Red")
             {
-                GameObject player = Instantiate(AIRedPrefab, parentTrans);
+                GameObject player = Instantiate(AIRedPrefab, redPos.position, Quaternion.identity, parentTrans);
                 player.GetComponent<AIController>().currPlatform = platform;
                 players.Add(player);
             }
             else if (color == "Green")
             {
                 //players.Add(Instantiate(AIGreenPrefab, parentTrans));
-                GameObject player = Instantiate(AIGreenPrefab, parentTrans);
+                GameObject player = Instantiate(AIGreenPrefab, greenPos.position, Quaternion.identity, parentTrans);
                 player.GetComponent<AIController>().currPlatform = platform;
                 players.Add(player);
             }
             else if (color == "Pink")
             {
                 //players.Add(Instantiate(AIPinkPrefab, parentTrans));
-                GameObject player = Instantiate(AIPinkPrefab, parentTrans);
+                GameObject player = Instantiate(AIPinkPrefab, pinkPos.position, Quaternion.identity, parentTrans);
                 player.GetComponent<AIController>().currPlatform = platform;
                 players.Add(player);
             }

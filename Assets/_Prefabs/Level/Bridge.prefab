@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1865252078466173317}
   m_Layer: 7
   m_Name: Rod
-  m_TagString: Untagged
+  m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 1865252078716866177}
   m_Layer: 7
   m_Name: Rod
-  m_TagString: Untagged
+  m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 1865252078809165418}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 1865252078871518927}
   m_Layer: 7
   m_Name: Side_L
-  m_TagString: Untagged
+  m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -387,7 +387,7 @@ GameObject:
   - component: {fileID: 1865252078872180859}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -534,7 +534,7 @@ GameObject:
   - component: {fileID: 1865252079615170525}
   m_Layer: 7
   m_Name: Rod
-  m_TagString: Untagged
+  m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -695,7 +695,7 @@ GameObject:
   - component: {fileID: 1865252079906345446}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -850,6 +850,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPos: {fileID: 3741483612835130844}
   endPos: {fileID: 7322553878209403570}
+  isAssigned: 0
 --- !u!1 &1865252080239340367
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,7 +932,7 @@ GameObject:
   - component: {fileID: 1865252080441425829}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1015,7 +1016,7 @@ GameObject:
   - component: {fileID: 1865252080475011838}
   m_Layer: 7
   m_Name: Side_R
-  m_TagString: Untagged
+  m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1178,7 +1179,7 @@ GameObject:
   - component: {fileID: 1865252080530183950}
   m_Layer: 7
   m_Name: Rod
-  m_TagString: Untagged
+  m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1382,7 +1383,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2330065716275284050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.775, z: 8.536}
+  m_LocalPosition: {x: 0, y: 4.775, z: 8.933}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1413,7 +1414,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7678660286226372982}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.0607, z: -0.185}
+  m_LocalPosition: {x: 0, y: -0.0607, z: -0.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -244,7 +244,7 @@ MonoBehaviour:
   steps: []
   stepTopPos: {x: 0, y: 0, z: 0}
   playerTopPos: {x: 0, y: 8, z: 0}
-  stepHeight: 0.6
+  stepHeight: 0.5
   backwardStartAngle: 0
   backwardEndAngle: 25
   backwardLerpSpeed: 5
@@ -322,27 +322,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 3
   rotateSpeed: 15
-  slopeRayLength: 0.5
-  groundCheckDist: 0.5
-  boundryCheckDist: 0.25
-  boundryLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  stepsLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  parentTrans: {fileID: 619717448372991292}
+  playerTrans: {fileID: 619717448372991292}
   characterTrans: {fileID: 1086234755541952369}
   playerProperty: {fileID: 619717448372991232}
   stepStack: {fileID: 619717448007285096}
   animController: {fileID: 619717447586381976}
-  rb: {fileID: 619717448372991233}
   currPlatform: {fileID: 0}
   currBridge: {fileID: 0}
-  isGrounded: 0
-  canMove: 0
+  stepsLayer:
+    serializedVersion: 2
+    m_Bits: 512
   navMeshAgent: {fileID: 2805118336265368444}
-  dest: {x: 0, y: 0, z: 0}
+  collectStepAction: {fileID: 0}
+  buildBridgeAction: {fileID: 0}
 --- !u!136 &619717448372991234
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -351,7 +343,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 619717448372991293}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.20042631
   m_Height: 1.1378577
