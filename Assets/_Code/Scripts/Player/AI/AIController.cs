@@ -5,10 +5,10 @@ using UnityEngine.AI;
 public class AIController : PlayerController
 {
     public LayerMask stepsLayer;
+    public LayerMask dumbStepsLayer;
+    [Range(1, 3)] public int competitiveness = 1;
+    
 
-    public NavMeshAgent navMeshAgent;
-
-    //public AIAction behaviour;
     public CollectStepsAction collectStepAction;
     public BuildBridgeAction buildBridgeAction;
 
@@ -28,5 +28,14 @@ public class AIController : PlayerController
     {
         collectStepAction?.Perform();
 
+    }
+
+    public override void MoveToFinishPos(Transform finishPos)
+    {
+        // Stop All Actions
+        collectStepAction?.Stop();
+        buildBridgeAction?.Stop();
+
+        base.MoveToFinishPos(finishPos);
     }
 }

@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class CollectStepsAction : AIAction
@@ -17,10 +16,10 @@ public class CollectStepsAction : AIAction
 
         stepsCount = Random.Range(5, 8);
         int maxCount = AIController.currPlatform.GetStepsColorCount(AIController.tag);
-        stepsCount = Mathf.Clamp(stepsCount, (int)(maxCount / 2), maxCount);
-
+        stepsCount = Mathf.Clamp(stepsCount, (int)(maxCount / 2), (maxCount - (3 - AIController.competitiveness)));
+        Debug.Log("AI Steps Count = " + stepsCount);
         AIController.animController.SetBool("Run", true);
-
+        AIController.stepStack.MoveStack();
     }
     private void Update()
     {
@@ -43,9 +42,9 @@ public class CollectStepsAction : AIAction
 
             if (isMoving)
             {
-                // Rotate Toward Destinatino
-                Rotate()
-;
+                // Rotate Toward Destination
+                Rotate();
+                AIController.stepStack.MoveStack();
 
                 // Check Player Reached Destination or not
                 if (Vector3.Distance(AIController.playerTrans.position, destination) <= 0.1f)
@@ -62,16 +61,37 @@ public class CollectStepsAction : AIAction
     }
     private Vector3 GetNearestStep()
     {
-        // Perform a SphereCast in the given direction
-        RaycastHit[] hits = Physics.SphereCastAll(AIController.playerTrans.position, 15f, Vector3.up, 15f, AIController.stepsLayer);
+        int dumbProb = Random.Range(0, AIController.competitiveness + 1); // START FROM HERE
+
+        RaycastHit[] hits = null;
+        if (dumbProb == 0)
+        {
+            // Detecting Dumb Steps Layer
+            hits = Physics.SphereCastAll(AIController.playerTrans.position, 15f, Vector3.up, 15f, AIController.dumbStepsLayer);
+            Debug.Log("Detecting Dumb Steps Layer = " + hits.Length);
+            RaycastHit randHit = hits[Random.Range(0, hits.Length)];
+
+            if (!randHit.collider.CompareTag("Collected"))
+            {
+                return randHit.collider.transform.position;
+            }
+        }
+
+
+        // Detecting Steps Layer
+        Debug.Log("Detecting Steps Layer");
+        hits = Physics.SphereCastAll(AIController.playerTrans.position, 15f, Vector3.up, 15f, AIController.stepsLayer);
 
         float minDist = float.MaxValue;
         Vector3 dest = Vector3.zero;
+
         // Check for hits and handle them
         foreach (var hit in hits)
         {
-            if (!hit.collider.CompareTag("Collected") && Vector3.Distance(hit.collider.transform.position, AIController.playerTrans.position) < minDist)
+            if (!hit.collider.CompareTag("Collected") &&
+                Vector3.Distance(hit.collider.transform.position, AIController.playerTrans.position) < minDist)
             {
+
                 minDist = Vector3.Distance(hit.collider.transform.position, AIController.playerTrans.position);
                 dest = hit.collider.transform.position;
             }

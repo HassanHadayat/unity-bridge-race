@@ -18,6 +18,8 @@ public class HumanController : PlayerController
 
     private void Update()
     {
+        if (isLevelFinished) return;
+
         // Check for touch input to move the player.
         if (Input.touchCount > 0)
         {

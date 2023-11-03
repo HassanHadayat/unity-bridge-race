@@ -12,7 +12,7 @@ public class PlatformConnector : MonoBehaviour
             other.gameObject.GetComponent<PlayerController>().currPlatform = toPlatform;
             other.gameObject.GetComponent<PlayerController>().currBridge = null;
 
-            //other.gameObject.GetComponent<PlayerController>().currPlatform = toPlatform;
+            toPlatform.SetPlayerSteps(new string[] { other.gameObject.GetComponent<PlayerController>().characterTrans.tag });
         }
     }
 }

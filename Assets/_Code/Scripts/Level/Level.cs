@@ -6,7 +6,12 @@ public class Level : MonoBehaviour
     [Range(2, 4)]
     public int NoOfPlayers;
     private string[] AIColors = new string[] { "Red", "Green", "Pink" };
-
+    private string[] overallPlayerColors;
+    public string[] PlayerColors
+    {
+        get { return overallPlayerColors; }
+        private set { overallPlayerColors = value; }
+    }
 
     public Platform[] platforms;
 
@@ -27,13 +32,18 @@ public class Level : MonoBehaviour
             playerColors[i] = AIColors[i - 1];
         }
 
+        PlayerColors = playerColors;
 
-        foreach (Platform platform in platforms)
+
+        // Setup all Platforms
+        for (int i = 0; i < platforms.Length; i++)
         {
-            platform.SetupPlatform(playerColors);
+            if (i == 0)
+                platforms[0].SetupPlatform(this, true);
+            else
+                platforms[i].SetupPlatform(this);
         }
 
         PlayerInstantiator.Instance.InstantiatePlayers(playerColors, platforms[0]);
     }
-
 }

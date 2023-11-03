@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
+    [Header("Level")]
+    public Level level;
+
     [Header("Bridges")]
     public Bridge[] bridges;
     public List<int> availableBridgeIndexes = new List<int>();
@@ -26,6 +29,7 @@ public class Platform : MonoBehaviour
     public List<GameObject> platformSteps = new List<GameObject>();
     public List<Vector3> availablePositions = new List<Vector3>();
 
+    public GameObject AIDumbSteps;
 
     private void Start()
     {
@@ -35,6 +39,7 @@ public class Platform : MonoBehaviour
             Transform temp = stepSpawnPositions[i];
             stepSpawnPositions[i] = stepSpawnPositions[randIndex];
             stepSpawnPositions[randIndex] = temp;
+            availablePositions.Add(stepSpawnPositions[i].position);
         }
 
 
@@ -43,54 +48,54 @@ public class Platform : MonoBehaviour
             availableBridgeIndexes.Add(i);
         }
     }
-    public void SetupPlatform(string[] playerColors)
+    public void SetupPlatform(Level _level, bool initialize = false)
     {
-        int stepsPerColor = (stepSpawnPositions.Length / playerColors.Length);
-        int extras = (stepSpawnPositions.Length % playerColors.Length);
-        //Debug.Log("Count = " + stepsPerColor);
-        //Debug.Log("Extras = " + extras);
-        int i = 0;
+        level = _level;
+        if (initialize) SetPlayerSteps(level.PlayerColors);
+    }
+
+    public void SetPlayerSteps(string[] playerColors)
+    {
+        //int extras = (stepSpawnPositions.Length % level.NoOfPlayers);
+
         foreach (var color in playerColors)
         {
             if (color == "Blue")
             {
-                for (int j = 0; j < (stepsPerColor + extras); j++, i++)
-                {
-                    GameObject step = Instantiate(stepBluePrefab, stepSpawnPositions[i].position, Quaternion.identity, stepSpawnPositionsTrans);
-                    step.GetComponent<Step>().platform = this;
-                    platformSteps.Add(step);
-                }
+                SetPlayerSteps(stepBluePrefab);
             }
             else if (color == "Red")
             {
-                for (int j = 0; j < stepsPerColor; j++, i++)
-                {
-                    GameObject step = Instantiate(stepRedPrefab, stepSpawnPositions[i].position, Quaternion.identity, stepSpawnPositionsTrans);
-                    step.GetComponent<Step>().platform = this;
-                    platformSteps.Add(step);
-                }
+                SetPlayerSteps(stepRedPrefab);
+                AIDumbSteps.SetActive(true);
             }
             else if (color == "Green")
             {
-                for (int j = 0; j < stepsPerColor; j++, i++)
-                {
-                    GameObject step = Instantiate(stepGreenPrefab, stepSpawnPositions[i].position, Quaternion.identity, stepSpawnPositionsTrans);
-                    step.GetComponent<Step>().platform = this;
-                    platformSteps.Add(step);
-                }
+                SetPlayerSteps(stepGreenPrefab);
+                AIDumbSteps.SetActive(true);
             }
             else if (color == "Pink")
             {
-                for (int j = 0; j < stepsPerColor; j++, i++)
-                {
-                    GameObject step = Instantiate(stepPinkPrefab, stepSpawnPositions[i].position, Quaternion.identity, stepSpawnPositionsTrans);
-                    step.GetComponent<Step>().platform = this;
-                    platformSteps.Add(step);
-                }
+                SetPlayerSteps(stepRedPrefab);
+                AIDumbSteps.SetActive(true);
             }
         }
-
     }
+
+    public void SetPlayerSteps(GameObject stepPrefab)
+    {
+        int count = (stepSpawnPositions.Length / level.NoOfPlayers);
+
+        for (int i = 0; i < count; i++)
+        {
+            if (availablePositions.Count <= 0) return;
+            GameObject step = Instantiate(stepPrefab, availablePositions[0], Quaternion.identity, stepSpawnPositionsTrans);
+            availablePositions.RemoveAt(0);
+            step.GetComponent<Step>().platform = this;
+            platformSteps.Add(step);
+        }
+    }
+
     public void AddAvailableStepPosition(Vector3 stepPos)
     {
         if (!availablePositions.Contains(stepPos))
@@ -105,8 +110,9 @@ public class Platform : MonoBehaviour
 
     public void AddPlatformStep(GameObject step)
     {
-        int randValue = Random.Range(0, availablePositions.Count);
+        if (availablePositions.Count <= 0) return;
 
+        int randValue = Random.Range(0, availablePositions.Count);
 
         step.transform.parent = stepSpawnPositionsTrans;
         step.transform.position = availablePositions[randValue];
@@ -123,7 +129,6 @@ public class Platform : MonoBehaviour
         if (playerTag.Contains("Blue"))
         {
             stepTag = "Blue Step";
-
         }
         else if (playerTag.Contains("Red"))
         {

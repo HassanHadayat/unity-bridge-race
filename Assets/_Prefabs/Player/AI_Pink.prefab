@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 619717447586381976}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Red
+  m_TagString: Pink
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,8 +227,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.2415633, y: 2.227064, z: 3.3844943}
-  m_Center: {x: -0.0849104, y: -0.6135341, z: 0.75856614}
+  m_Size: {x: 1.1787853, y: 2.227064, z: 1.1387504}
+  m_Center: {x: 0.0103978515, y: -0.61353564, z: 0.5658683}
 --- !u!114 &619717448007285096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,10 +246,10 @@ MonoBehaviour:
   playerTopPos: {x: 0, y: 8, z: 0}
   stepHeight: 0.6
   backwardStartAngle: 0
-  backwardEndAngle: 25
+  backwardEndAngle: 20
   backwardLerpSpeed: 5
   forwardStartAngle: 0
-  forwardEndAngle: 30
+  forwardEndAngle: 25
   forwardLerpSpeed: 15
   isNone: 1
   isStill: 0
@@ -329,10 +329,15 @@ MonoBehaviour:
   animController: {fileID: 619717447586381976}
   currPlatform: {fileID: 0}
   currBridge: {fileID: 0}
+  navMeshAgent: {fileID: 2805118336265368444}
+  isLevelFinished: 0
   stepsLayer:
     serializedVersion: 2
     m_Bits: 2048
-  navMeshAgent: {fileID: 2805118336265368444}
+  dumbStepsLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  competitiveness: 1
   collectStepAction: {fileID: 0}
   buildBridgeAction: {fileID: 0}
 --- !u!136 &619717448372991234

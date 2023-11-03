@@ -45,8 +45,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4.2415633, y: 2.227064, z: 3.3844943}
-  m_Center: {x: -0.0849104, y: -0.6135341, z: 0.75856614}
+  m_Size: {x: 2.5106776, y: 2.227064, z: 2.6904206}
+  m_Center: {x: -0.0011594297, y: -0.61353576, z: 0.64116716}
 --- !u!114 &5335088148371614389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,10 +64,10 @@ MonoBehaviour:
   playerTopPos: {x: 0, y: 8, z: 0}
   stepHeight: 0.5
   backwardStartAngle: 0
-  backwardEndAngle: 25
+  backwardEndAngle: 20
   backwardLerpSpeed: 5
   forwardStartAngle: 0
-  forwardEndAngle: 30
+  forwardEndAngle: 25
   forwardLerpSpeed: 15
   isNone: 1
   isStill: 0
@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 5335088148888282847}
   - component: {fileID: 5335088148888282844}
   - component: {fileID: 9149264153720203078}
+  - component: {fileID: 3661062219077008145}
   m_Layer: 0
   m_Name: Player
   m_TagString: Blue Player
@@ -176,6 +177,8 @@ MonoBehaviour:
   animController: {fileID: 5335088150114751301}
   currPlatform: {fileID: 0}
   currBridge: {fileID: 0}
+  navMeshAgent: {fileID: 3661062219077008145}
+  isLevelFinished: 0
   slopeRayLength: 0.5
   groundCheckDistance: 0.5
   boundryCheckDistance: 0.5
@@ -185,6 +188,28 @@ MonoBehaviour:
   rb: {fileID: 5335088148888282844}
   isGrounded: 0
   canMove: 0
+--- !u!195 &3661062219077008145
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5335088148888282848}
+  m_Enabled: 1
+  m_AgentTypeID: -1372625422
+  m_Radius: 0.1
+  m_Speed: 3
+  m_Acceleration: 20
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.04
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &5335088149738334793
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,6 +342,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bf5cf537950a9d945ba67ab4037602ed, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bf5cf537950a9d945ba67ab4037602ed, type: 3}
+      propertyPath: m_TagString
+      value: Blue
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf5cf537950a9d945ba67ab4037602ed, type: 3}

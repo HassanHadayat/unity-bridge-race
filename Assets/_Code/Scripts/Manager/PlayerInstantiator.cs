@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerInstantiator : MonoBehaviour
 {
     public static PlayerInstantiator Instance;
@@ -32,7 +33,6 @@ public class PlayerInstantiator : MonoBehaviour
     {
         foreach (string color in playerColors)
         {
-            //GameObject player = null;
             if (color == "Blue")
             {
                 GameObject player = Instantiate(PlayerBluePrefab, bluePos.position, Quaternion.identity, parentTrans);
@@ -48,19 +48,16 @@ public class PlayerInstantiator : MonoBehaviour
             }
             else if (color == "Green")
             {
-                //players.Add(Instantiate(AIGreenPrefab, parentTrans));
                 GameObject player = Instantiate(AIGreenPrefab, greenPos.position, Quaternion.identity, parentTrans);
                 player.GetComponent<AIController>().currPlatform = platform;
                 players.Add(player);
             }
             else if (color == "Pink")
             {
-                //players.Add(Instantiate(AIPinkPrefab, parentTrans));
                 GameObject player = Instantiate(AIPinkPrefab, pinkPos.position, Quaternion.identity, parentTrans);
                 player.GetComponent<AIController>().currPlatform = platform;
                 players.Add(player);
             }
-            //players.Add(player);
         }
     }
 

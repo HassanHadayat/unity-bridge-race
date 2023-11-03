@@ -18,6 +18,8 @@ public abstract class AIAction : MonoBehaviour
 
         AIController.animController.SetBool("Run", false);
         toAction.Perform();
+        AIController.stepStack.StillStack();
+
     }
     public void Stop()
     {
@@ -25,11 +27,13 @@ public abstract class AIAction : MonoBehaviour
         isMoving = false;
 
         AIController.animController.SetBool("Run", false);
+        AIController.stepStack.StillStack();
     }
     public void Rotate()
     {
         // Rotate Toward Destinatino
         Vector3 moveDirection = (destination - AIController.playerTrans.position).normalized;
+        moveDirection.y = 0;
         Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
         lerpTime = Mathf.Clamp((lerpTime + (AIController.rotateSpeed * Time.deltaTime)), 0, 1);
         AIController.characterTrans.rotation = Quaternion.Slerp(AIController.characterTrans.rotation, targetRotation, lerpTime);

@@ -59,6 +59,7 @@ public class BuildBridgeAction : AIAction
             }
             // Rotate Toward Destinatino
             Rotate();
+            AIController.stepStack.MoveStack();
             if (isMovingTowardStart)
             {
                 if (Vector3.Distance(AIController.playerTrans.position, destination) <= 0.1f)
@@ -95,35 +96,6 @@ public class BuildBridgeAction : AIAction
                     return;
                 }
             }
-
-
-            //if (Vector3.Distance(AIController.playerTrans.position, destination) <= 0.1f || AIController.stepStack.steps.Count <= 0)
-            //{
-            //    if (isMovingTowardStart)
-            //    {
-            //        destination = AIController.currBridge.endPos.position;
-
-            //        isMovingTowardStart = false;
-            //        isReturningTowardStart = false;
-            //        isMovingTowardEnd = true;
-            //    }
-            //    else if (isMovingTowardEnd)
-            //    {
-            //        destination = AIController.currBridge.startPos.position;
-
-            //        isMovingTowardStart = false;
-            //        isMovingTowardEnd = false;
-            //        isReturningTowardStart = true;
-
-            //    }
-            //    else if (isReturningTowardStart)
-            //    {
-            //        // STOP ACTION -> COLLECT STEPS
-            //        Stop(AIController.collectStepAction);
-            //        return;
-            //    }
-            //    AIController.navMeshAgent.destination = destination;
-            //}
         }
     }
 }
