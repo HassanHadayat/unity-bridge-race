@@ -67,13 +67,16 @@ public class CollectStepsAction : AIAction
         if (dumbProb == 0)
         {
             // Detecting Dumb Steps Layer
-            hits = Physics.SphereCastAll(AIController.playerTrans.position, 15f, Vector3.up, 15f, AIController.dumbStepsLayer);
-            Debug.Log("Detecting Dumb Steps Layer = " + hits.Length);
-            RaycastHit randHit = hits[Random.Range(0, hits.Length)];
-
-            if (!randHit.collider.CompareTag("Collected"))
+            hits = Physics.SphereCastAll(AIController.playerTrans.position, 0.1f, Vector3.up, 0.1f, AIController.dumbStepsLayer);
+            if (hits != null && hits.Length > 0)
             {
-                return randHit.collider.transform.position;
+                Debug.Log("Detecting Dumb Steps Layer = " + hits.Length);
+                RaycastHit randHit = hits[Random.Range(0, hits.Length)];
+
+                if (!randHit.collider.CompareTag("Collected"))
+                {
+                    return randHit.collider.transform.position;
+                }
             }
         }
 
