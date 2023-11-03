@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     public PlayerProperty playerProperty;
     public StepStack stepStack;
+    public GameObject stepStackUI;
     public Animator animController;
     public Platform currPlatform;
     public Bridge currBridge;
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Moving To Finish");
 
         stepStack.gameObject.SetActive(false);
+        stepStackUI.gameObject.SetActive(false);
 
         // Set the Destionation toward the Finish Position
         navMeshAgent.enabled = true;

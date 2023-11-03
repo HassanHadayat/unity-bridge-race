@@ -1,8 +1,12 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class StepStack : MonoBehaviour
 {
+    public GameObject stackTextUI;
+    public TextMeshProUGUI stackCountText;
+
     public List<GameObject> steps = new List<GameObject>();
     public Vector3 stepTopPos = Vector3.zero;
     public Vector3 playerTopPos = Vector3.zero;
@@ -25,35 +29,18 @@ public class StepStack : MonoBehaviour
 
     private void Start()
     {
-
+        stackCountText = stackTextUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        stackCountText.text = "0";
     }
     private void Update()
     {
+        // Face UI toward the camera
+        stackTextUI.transform.LookAt(Camera.main.transform);
+
         if (isNone)
         {
             return;
         }
-        //else if (isCentering && isStill)
-        //{
-        //    MoveStackStepsToCenter(forwardLerpSpeed);
-        //    if (normalizedTime == 1)
-        //    {
-        //        isCentering = false;
-        //        isStill = true;
-        //        normalizedTime = 0.0f;
-        //    }
-        //}
-        //else if (isStill && isNone)
-        //{
-        //    MoveStackStepsToCenter(forwardLerpSpeed);
-        //    if (normalizedTime == 1)
-        //    {
-        //        isCentering = false;
-        //        isStill = false;
-        //        isNone = true;
-        //        normalizedTime = 0.0f;
-        //    }
-        //}
         else if (isStill)
         {
             MoveStackSteps(1, forwardStartAngle, forwardEndAngle, forwardLerpSpeed);// Forward Direction
@@ -64,12 +51,10 @@ public class StepStack : MonoBehaviour
                 isCentering = true;
                 normalizedTime = 0.0f;
             }
-            //StillStackMovement();
         }
         else if (isMoving)
         {
             MoveStackSteps(-1, backwardStartAngle, backwardEndAngle, backwardLerpSpeed);// Backward Direction
-            //MoveStackMovement();
         }
         else if (isCentering)
         {
@@ -87,6 +72,10 @@ public class StepStack : MonoBehaviour
 
     public void AddStep(GameObject step)
     {
+        // Increment Stack Count
+        stackCountText.text = (int.Parse(stackCountText.text) + 1).ToString();
+        StartCoroutine(PopStackCountUI());
+
         step.transform.parent = this.transform;
         step.tag = "Collected";
         step.GetComponent<Step>().MoveToStack(stepTopPos, playerTopPos);
@@ -98,6 +87,10 @@ public class StepStack : MonoBehaviour
     }
     public void RemoveStep()
     {
+        // Decremetn Stack Count
+        stackCountText.text = (int.Parse(stackCountText.text) - 1).ToString();
+        StartCoroutine(PopStackCountUI());
+
         // Restore that step in the platform
         GameObject step = steps[steps.Count - 1];
         step.tag = step.transform.parent.tag;
@@ -250,6 +243,15 @@ public class StepStack : MonoBehaviour
         normalizedTime = Mathf.Clamp((normalizedTime + (Time.deltaTime * lerpSpeed)), 0f, 1f);
     }
 
+
+
+    System.Collections.IEnumerator PopStackCountUI()
+    {
+        stackCountText.transform.localScale = Vector3.one * 1.35f;
+
+        yield return new WaitForSeconds(0.1f);
+        stackCountText.transform.localScale = Vector3.one;
+    }
 }
 
 
