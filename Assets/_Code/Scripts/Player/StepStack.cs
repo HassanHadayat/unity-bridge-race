@@ -247,7 +247,7 @@ public class StepStack : MonoBehaviour
 
     System.Collections.IEnumerator PopStackCountUI()
     {
-        stackCountText.transform.localScale = Vector3.one * 1.35f;
+        stackCountText.transform.localScale = Vector3.one * 1.5f;
 
         yield return new WaitForSeconds(0.1f);
         stackCountText.transform.localScale = Vector3.one;

@@ -17,7 +17,8 @@ public class Level : MonoBehaviour
 
     private void Start()
     {
-        Invoke("DelayStart", 0.15f);
+        //Invoke("DelayStart", 0.15f);
+        DelayStart();
     }
 
 

@@ -27,7 +27,6 @@ public class AIController : PlayerController
     private void DelayStart()
     {
         collectStepAction?.Perform();
-
     }
 
     public override void MoveToFinishPos(Transform finishPos)

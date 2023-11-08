@@ -13,11 +13,15 @@ public class CollectStepsAction : AIAction
     {
         lerpTime = 0;
         isPerforming = true;
+        isMoving = false;
 
+        // Set Steps Count to Collect
         stepsCount = Random.Range(5, 8);
         int maxCount = AIController.currPlatform.GetStepsColorCount(AIController.tag);
         stepsCount = Mathf.Clamp(stepsCount, (int)(maxCount / 2), (maxCount - (3 - AIController.competitiveness)));
         Debug.Log("AI Steps Count = " + stepsCount);
+
+        // Movement Visual Effects
         AIController.animController.SetBool("Run", true);
         AIController.stepStack.MoveStack();
     }
@@ -34,6 +38,7 @@ public class CollectStepsAction : AIAction
                 {
                     // STOP ACTION -> MOVE TO BUILD BRIDGE ACTION
                     Stop(AIController.buildBridgeAction);
+                    return;
                 }
 
                 AIController.navMeshAgent.destination = destination;
@@ -57,12 +62,14 @@ public class CollectStepsAction : AIAction
         {
             // STOP ACTION -> MOVE TO BUILD BRIDGE ACTION
             Stop(AIController.buildBridgeAction);
+            return;
         }
     }
     private Vector3 GetNearestStep()
     {
-        int dumbProb = Random.Range(0, AIController.competitiveness + 1); // START FROM HERE
+        // DUMB STEPS FINDING
 
+        int dumbProb = Random.Range(0, AIController.competitiveness + 1);
         RaycastHit[] hits = null;
         if (dumbProb == 0)
         {
@@ -70,7 +77,6 @@ public class CollectStepsAction : AIAction
             hits = Physics.SphereCastAll(AIController.playerTrans.position, 0.1f, Vector3.up, 0.1f, AIController.dumbStepsLayer);
             if (hits != null && hits.Length > 0)
             {
-                Debug.Log("Detecting Dumb Steps Layer = " + hits.Length);
                 RaycastHit randHit = hits[Random.Range(0, hits.Length)];
 
                 if (!randHit.collider.CompareTag("Collected"))
@@ -81,9 +87,9 @@ public class CollectStepsAction : AIAction
         }
 
 
+        // REAL STEP FINDING
         // Detecting Steps Layer
-        Debug.Log("Detecting Steps Layer");
-        hits = Physics.SphereCastAll(AIController.playerTrans.position, 15f, Vector3.up, 15f, AIController.stepsLayer);
+        hits = Physics.SphereCastAll(AIController.characterTrans.position, 15f, Vector3.up, 15f, AIController.stepsLayer);
 
         float minDist = float.MaxValue;
         Vector3 dest = Vector3.zero;
@@ -91,10 +97,10 @@ public class CollectStepsAction : AIAction
         // Check for hits and handle them
         foreach (var hit in hits)
         {
-            if (!hit.collider.CompareTag("Collected") &&
-                Vector3.Distance(hit.collider.transform.position, AIController.playerTrans.position) < minDist)
-            {
 
+            if (!hit.collider.CompareTag("Collected") 
+                && Vector3.Distance(hit.collider.transform.position, AIController.playerTrans.position) < minDist)
+            {
                 minDist = Vector3.Distance(hit.collider.transform.position, AIController.playerTrans.position);
                 dest = hit.collider.transform.position;
             }

@@ -20,9 +20,9 @@ public class BridgeStep : MonoBehaviour
             {
                 if (tempStackCount > 0 && PC.playerProperty.m_Material.name != stepMaterial.name)
                 {
-                    PC.stepStack.RemoveStep();
                     Material newMaterial = PC.playerProperty.m_Material;
                     StartCoroutine(ChangeMaterial(newMaterial));
+                    PC.stepStack.RemoveStep();
                 }
                 else
                 {

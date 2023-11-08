@@ -24,8 +24,18 @@ public class PlayerController : MonoBehaviour
         playerTrans = transform;
         isLevelFinished = false;
     }
+    public void StopPlayer()
+    {
+        if (isLevelFinished == true) return;
 
-    public virtual void MoveToFinishPosition(Transform finishPos) { }
+        isLevelFinished = true;
+
+        // Activate Animation
+        animController.SetBool("Run", false);
+
+        navMeshAgent.velocity = Vector3.zero;
+        navMeshAgent.enabled = false;
+    }
     public virtual void MoveToFinishPos(Transform finishPos)
     {
         isLevelFinished = true;

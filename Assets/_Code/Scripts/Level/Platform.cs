@@ -45,6 +45,10 @@ public class Platform : MonoBehaviour
 
         for (int i = 0; i < bridges.Length; i++)
         {
+            int randIndex = Random.Range(i, bridges.Length);
+            Bridge temp = bridges[i];
+            bridges[i] = bridges[randIndex];
+            bridges[randIndex] = temp;
             availableBridgeIndexes.Add(i);
         }
     }
@@ -163,7 +167,9 @@ public class Platform : MonoBehaviour
         }
         else
         {
-            return null;
+            if (bridges != null && bridges.Length > 0)
+                return bridges[Random.Range(0, bridges.Length)];
+            else return null;
         }
     }
 }

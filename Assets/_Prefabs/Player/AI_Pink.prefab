@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 048415c1e29903141a589ad5a18643f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 3
+  walkSpeed: 1.8
   rotateSpeed: 15
   playerTrans: {fileID: 619717448372991292}
   characterTrans: {fileID: 1086234755541952369}
@@ -384,7 +384,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: -1372625422
   m_Radius: 0.1
-  m_Speed: 3
+  m_Speed: 1.8
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 120

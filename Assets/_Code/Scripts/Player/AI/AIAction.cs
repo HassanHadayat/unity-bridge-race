@@ -17,8 +17,8 @@ public abstract class AIAction : MonoBehaviour
         isMoving = false;
 
         AIController.animController.SetBool("Run", false);
-        toAction.Perform();
         AIController.stepStack.StillStack();
+        toAction.Perform();
 
     }
     public void Stop()

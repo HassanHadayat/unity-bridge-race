@@ -29,6 +29,10 @@ public class PlayerInstantiator : MonoBehaviour
         if (Instance == null)
             Instance = this;
     }
+    private void Start()
+    {
+        GameManager.Instance.OnLevelEndedEvent += StopPlayers;
+    }
     public void InstantiatePlayers(string[] playerColors, Platform platform)
     {
         foreach (string color in playerColors)
@@ -60,6 +64,12 @@ public class PlayerInstantiator : MonoBehaviour
             }
         }
     }
-
+    public void StopPlayers(bool isHumanWon)
+    {
+        foreach (var player in players)
+        {
+            player.GetComponent<PlayerController>().StopPlayer();
+        }
+    }
 
 }

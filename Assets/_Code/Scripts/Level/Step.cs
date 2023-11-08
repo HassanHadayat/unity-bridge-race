@@ -22,7 +22,7 @@ public class Step : MonoBehaviour
     Vector3 pointBC;
     private Vector3 QuadraticLerp(Vector3 a, Vector3 b, Vector3 c)
     {
-        interpolateAmount = ((interpolateAmount + (Time.deltaTime * moveSpeed)) % 1);
+        interpolateAmount = (interpolateAmount + (Time.deltaTime * moveSpeed));
 
         pointAB = Vector3.Lerp(a, b, interpolateAmount);
         pointBC = Vector3.Lerp(b, c, interpolateAmount);
@@ -41,7 +41,7 @@ public class Step : MonoBehaviour
             transform.localPosition = QuadraticLerp(a, b, c);
             transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.identity, rotateSpeed * Time.deltaTime);
 
-            if (Vector3.Distance(transform.localPosition, moveToPos) < 1f)
+            if (Vector3.Distance(transform.localPosition, moveToPos) <= 0.5f)
             {
                 transform.localPosition = moveToPos;
                 transform.localRotation = Quaternion.identity;

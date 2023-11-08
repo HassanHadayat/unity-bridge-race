@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231020849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.508, y: 5.061, z: 8.506}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.508, y: 5.148, z: 8.506}
+  m_LocalScale: {x: 1, y: 1.244, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 677150295}
@@ -86,9 +86,9 @@ GameObject:
   - component: {fileID: 677150298}
   - component: {fileID: 677150297}
   - component: {fileID: 677150296}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Boundry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -895,7 +895,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1865252079770087112}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 4.575, z: 8.505013}
+  m_LocalPosition: {x: -0.5, y: 4.727, z: 8.505013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1107,6 +1107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startPos: {fileID: 3741483612835130844}
   endPos: {fileID: 7322553878209403570}
+  lastStep: {fileID: 8020598657684640836}
   isAssigned: 0
 --- !u!1 &1865252080239340367
 GameObject:
@@ -1413,7 +1414,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1865252080512379314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 4.575, z: 8.505013}
+  m_LocalPosition: {x: 0.5, y: 4.727, z: 8.505013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1640,7 +1641,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2330065716275284050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.775, z: 8.933}
+  m_LocalPosition: {x: 0, y: 4.743, z: 9.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1826,6 +1827,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30170b66bb655d548a7832b5c8078e7c, type: 3}
+--- !u!114 &8020598657684640836 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8551305561394070862, guid: 30170b66bb655d548a7832b5c8078e7c, type: 3}
+  m_PrefabInstance: {fileID: 1865252078540280074}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e226690569a72ea49b64d99af89bbd66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9051028400535153721 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7239820634353401139, guid: 30170b66bb655d548a7832b5c8078e7c, type: 3}

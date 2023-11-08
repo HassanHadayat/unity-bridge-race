@@ -36,6 +36,7 @@ public class BridgeGate : MonoBehaviour
         {
             Vector3 temp = gateTrans.localScale;
             temp.x -= Time.deltaTime * openingSpeed;
+            temp.x = Mathf.Clamp(temp.x, 0, 1);
             gateTrans.localScale = temp;
             yield return null;
         }
