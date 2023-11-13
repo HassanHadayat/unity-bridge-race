@@ -242,7 +242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stackTextUI: {fileID: 1741790241300060422}
-  stackCountText: {fileID: 0}
+  stackUIAnimController: {fileID: 3086718752080912790}
+  stackCountText: {fileID: 4133810851427036626}
   steps: []
   stepTopPos: {x: 0, y: 0, z: 0}
   playerTopPos: {x: 0, y: 8, z: 0}
@@ -2653,6 +2654,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5208546954319118809, guid: a8e40055a6c54dd448de2b06d5b97063, type: 3}
   m_PrefabInstance: {fileID: 5792875026886482143}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &3086718752080912790 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8841225212035676489, guid: a8e40055a6c54dd448de2b06d5b97063, type: 3}
+  m_PrefabInstance: {fileID: 5792875026886482143}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4133810851427036626 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7582463307437208845, guid: a8e40055a6c54dd448de2b06d5b97063, type: 3}
+  m_PrefabInstance: {fileID: 5792875026886482143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4133810851749244042 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7582463307113034837, guid: a8e40055a6c54dd448de2b06d5b97063, type: 3}

@@ -33,6 +33,7 @@ public class Platform : MonoBehaviour
 
     private void Start()
     {
+
         for (int i = 0; i < stepSpawnPositions.Length; i++)
         {
             int randIndex = Random.Range(i, stepSpawnPositions.Length);
@@ -41,7 +42,7 @@ public class Platform : MonoBehaviour
             stepSpawnPositions[randIndex] = temp;
             availablePositions.Add(stepSpawnPositions[i].position);
         }
-
+        Debug.Log("Avail Pos Count = " + availablePositions.Count);
 
         for (int i = 0; i < bridges.Length; i++)
         {
@@ -88,12 +89,15 @@ public class Platform : MonoBehaviour
 
     public void SetPlayerSteps(GameObject stepPrefab)
     {
+        Debug.Log("Setting Player Steps");
         int count = (stepSpawnPositions.Length / level.NoOfPlayers);
 
         for (int i = 0; i < count; i++)
         {
+            Debug.Log("Setting Player Steps -> Test 1 = " + availablePositions.Count);
             if (availablePositions.Count <= 0) return;
             GameObject step = Instantiate(stepPrefab, availablePositions[0], Quaternion.identity, stepSpawnPositionsTrans);
+            Debug.Log("Setting Player Steps -> Test 2");
             availablePositions.RemoveAt(0);
             step.GetComponent<Step>().platform = this;
             platformSteps.Add(step);

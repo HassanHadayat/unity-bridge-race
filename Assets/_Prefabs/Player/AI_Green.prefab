@@ -242,7 +242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stackTextUI: {fileID: 2875844895782096722}
-  stackCountText: {fileID: 0}
+  stackUIAnimController: {fileID: 1518596072665593794}
+  stackCountText: {fileID: 476016369044716422}
   steps: []
   stepTopPos: {x: 0, y: 0, z: 0}
   playerTopPos: {x: 0, y: 8, z: 0}
@@ -2656,6 +2657,22 @@ GameObject:
 --- !u!224 &476016368722115295 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7582463307113034836, guid: a8e40055a6c54dd448de2b06d5b97063, type: 3}
+  m_PrefabInstance: {fileID: 8043838407036898955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &476016369044716422 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7582463307437208845, guid: a8e40055a6c54dd448de2b06d5b97063, type: 3}
+  m_PrefabInstance: {fileID: 8043838407036898955}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &1518596072665593794 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8841225212035676489, guid: a8e40055a6c54dd448de2b06d5b97063, type: 3}
   m_PrefabInstance: {fileID: 8043838407036898955}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2875844895782096722 stripped

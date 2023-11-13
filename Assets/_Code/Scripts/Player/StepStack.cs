@@ -5,6 +5,7 @@ using UnityEngine;
 public class StepStack : MonoBehaviour
 {
     public GameObject stackTextUI;
+    public Animator stackUIAnimController;
     public TextMeshProUGUI stackCountText;
 
     public List<GameObject> steps = new List<GameObject>();
@@ -29,7 +30,6 @@ public class StepStack : MonoBehaviour
 
     private void Start()
     {
-        stackCountText = stackTextUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         stackCountText.text = "0";
     }
     private void Update()
@@ -68,12 +68,30 @@ public class StepStack : MonoBehaviour
             }
         }
     }
-
+    public void UpdateStackUI()
+    {
+        int currCount = int.Parse(stackCountText.text);
+        if (currCount == 0)
+        {
+            // Close
+            stackUIAnimController.SetTrigger("Close");
+        }
+        else if (currCount > 0)
+        {
+            // Open
+            stackUIAnimController.SetTrigger("Open");
+        }
+    }
 
     public void AddStep(GameObject step)
     {
+        int currCount = int.Parse(stackCountText.text);
+        if (currCount == 0)
+            stackUIAnimController.SetTrigger("Open");
+
         // Increment Stack Count
-        stackCountText.text = (int.Parse(stackCountText.text) + 1).ToString();
+        stackCountText.text = (currCount + 1).ToString();
+
         StartCoroutine(PopStackCountUI());
 
         step.transform.parent = this.transform;
@@ -87,6 +105,10 @@ public class StepStack : MonoBehaviour
     }
     public void RemoveStep()
     {
+        int currCount = int.Parse(stackCountText.text);
+        if (currCount == 1)
+            stackUIAnimController.SetTrigger("Close");
+
         // Decremetn Stack Count
         stackCountText.text = (int.Parse(stackCountText.text) - 1).ToString();
         StartCoroutine(PopStackCountUI());
