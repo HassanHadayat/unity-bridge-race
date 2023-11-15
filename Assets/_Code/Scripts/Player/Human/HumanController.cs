@@ -5,6 +5,7 @@ public class HumanController : PlayerController
     public float slopeRayLength = 0.5f; // Adjust as needed
     public float groundCheckDistance = 0.5f;
     public float boundryCheckDistance = 0.25f;
+    public LayerMask groundLayer;
     public LayerMask boundryLayer;
 
     public Rigidbody rb;
@@ -104,18 +105,18 @@ public class HumanController : PlayerController
         Vector3 rayStart = playerTrans.position + Vector3.up * 0.1f;
 
         // Cast a ray downward to check for ground or slopes.
-        if (Physics.Raycast(rayStart, Vector3.down, out hit, groundCheckDistance))
+        if (Physics.Raycast(rayStart, Vector3.down, out hit, groundCheckDistance, groundLayer))
         {
             float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
-            if (slopeAngle < 90.0f) // Adjust this angle threshold as needed
+            if (slopeAngle > 20.0f) // Adjust this angle threshold as needed
             {
                 isGrounded = true;
                 // Move the player up along the slope to avoid going through it.
                 playerTrans.position = hit.point + Vector3.up * 0.05f; // Adjust the offset as needed
             }
-            else
+            else if(slopeAngle <= 20.0f)
             {
-                isGrounded = false;
+                isGrounded = true;
             }
         }
         else

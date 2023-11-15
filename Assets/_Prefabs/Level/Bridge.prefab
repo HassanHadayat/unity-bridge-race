@@ -1532,7 +1532,7 @@ GameObject:
   - component: {fileID: 1865252080534486830}
   - component: {fileID: 1865252080534486829}
   - component: {fileID: 1865252080534486828}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BaseCol
   m_TagString: Untagged
   m_Icon: {fileID: 0}

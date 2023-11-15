@@ -7,6 +7,7 @@ public class CameraFollow : MonoBehaviour
     public Transform target;
     public Vector3 offset;
     public float smoothSpeed = 0.125f;
+    public float smoothLerp = 0;
     public float levelFinishedSmoothSpeed = 25f;
     private float lerpTime;
     public float rotationSpeed = 0.5f;
@@ -15,7 +16,7 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        transform.position = target.position + offset;
+        //transform.position = target.position + offset;
     }
 
     private void LateUpdate()
@@ -53,10 +54,15 @@ public class CameraFollow : MonoBehaviour
             else
             {
                 Vector3 desiredPosition = target.position + offset;
-                Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 
+                smoothLerp += Time.deltaTime * smoothSpeed;
+                Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothLerp);
+
+                if (transform.position == smoothedPosition)
+                    smoothLerp = 0f;
                 // Set the camera's position to the smoothed position
-                transform.position = smoothedPosition;
+                transform.position = desiredPosition;
+
             }
 
         }
