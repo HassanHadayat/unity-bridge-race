@@ -81,7 +81,7 @@ public class Platform : MonoBehaviour
             }
             else if (color == "Pink")
             {
-                SetPlayerSteps(stepRedPrefab);
+                SetPlayerSteps(stepPinkPrefab);
                 AIDumbSteps.SetActive(true);
             }
         }
